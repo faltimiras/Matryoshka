@@ -88,19 +88,19 @@ public class Matryoshka {
 			this.content = o;
 		}
 
-		public MatrioshkaList asList() {
+		public MatryoshkaList asList() {
 
 			if (this.content == null) {
-				return new MatrioshkaList();
+				return new MatryoshkaList();
 			}
 
 			if (this.content instanceof List) {
-				return new MatrioshkaList((List) this.content);
+				return new MatryoshkaList((List) this.content);
 			}
 			else {
 				List list = new ArrayList(1);
 				list.add(this.content);
-				return new MatrioshkaList(list);
+				return new MatryoshkaList(list);
 			}
 		}
 
@@ -108,7 +108,7 @@ public class Matryoshka {
 			return content;
 		}
 
-		public Matryoshka asMatrioshka() throws Exception {
+		public Matryoshka asMatryoshka() throws Exception {
 			if (this.content instanceof Map) {
 				return new Matryoshka((Map) this.content);
 			}
@@ -116,15 +116,15 @@ public class Matryoshka {
 				return new Matryoshka((String) this.content);
 			}
 
-			throw new Exception("Can not get as Matrioshka. Hint: try with asList()");
+			throw new Exception("Can not get as Matryoshka. Hint: try with asList()");
 		}
 	}
 
-	public class MatrioshkaIterator implements Iterator<Matryoshka> {
+	public class MatryoshkaIterator implements Iterator<Matryoshka> {
 
 		final private Iterator<Map> it;
 
-		MatrioshkaIterator(Iterator<Map> it) {
+		MatryoshkaIterator(Iterator<Map> it) {
 			this.it = it;
 		}
 
@@ -146,9 +146,9 @@ public class Matryoshka {
 		}
 	}
 
-	public class EmptyMatrioshkaIterator implements Iterator {
+	public class EmptyMatryoshkaIterator implements Iterator {
 
-		EmptyMatrioshkaIterator() {
+		EmptyMatryoshkaIterator() {
 		}
 
 		@Override
@@ -162,15 +162,15 @@ public class Matryoshka {
 		}
 	}
 
-	public class MatrioshkaList {
+	public class MatryoshkaList {
 
 		final private List rawList;
 
-		MatrioshkaList() {
+		MatryoshkaList() {
 			this.rawList = null;
 		}
 
-		MatrioshkaList(List rawList) {
+		MatryoshkaList(List rawList) {
 			this.rawList = rawList;
 		}
 
@@ -187,9 +187,9 @@ public class Matryoshka {
 
 		public Iterator<Matryoshka> iterator() {
 			if (this.rawList == null || rawList.isEmpty()) {
-				return new EmptyMatrioshkaIterator();
+				return new EmptyMatryoshkaIterator();
 			}
-			return new MatrioshkaIterator(this.rawList.iterator());
+			return new MatryoshkaIterator(this.rawList.iterator());
 		}
 
 		public Matryoshka get(int index) throws Exception {

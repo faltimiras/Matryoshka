@@ -55,9 +55,9 @@ public class MatryoshkaTest {
 
 		assertEquals("111", matryoshka.get("root/obj/value1").asList().get(0).get("").value());
 		assertEquals("222", matryoshka.get("/root").asList().get(0).get("/obj/value2").value());
-		assertEquals("222", matryoshka.get("/root").asList().get(0).get("/obj/").asMatrioshka().get("value2").value());
+		assertEquals("222", matryoshka.get("/root").asList().get(0).get("/obj/").asMatryoshka().get("value2").value());
 
-		assertEquals("aaa", matryoshka.get("root").asMatrioshka().get("field1").value());
+		assertEquals("aaa", matryoshka.get("root").asMatryoshka().get("field1").value());
 		assertEquals("bbb", matryoshka.get("root/field2").value());
 	}
 
@@ -101,7 +101,7 @@ public class MatryoshkaTest {
 
 		Matryoshka matryoshka = new Matryoshka(root);
 
-		matryoshka.get("root/list").asMatrioshka();
+		matryoshka.get("root/list").asMatryoshka();
 	}
 
 	@Test

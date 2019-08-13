@@ -20,8 +20,7 @@ public class Result {
 
 		if (this.content instanceof List) {
 			return new MatryoshkaList((List) this.content);
-		}
-		else {
+		} else {
 			List list = new ArrayList(1);
 			list.add(this.content);
 			return new MatryoshkaList(list);

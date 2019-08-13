@@ -12,13 +12,12 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class MatryoshkaTest {
 
 	@Test
-	public void value()throws Exception{
+	public void value() throws Exception {
 		Matryoshka matryoshka = new Matryoshka(1);
 		assertEquals(1, matryoshka.get("/key/key2").value());
 	}

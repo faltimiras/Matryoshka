@@ -19,8 +19,7 @@ public class Matryoshka {
 	Matryoshka(Object value) {
 		if (value instanceof Map) {
 			this.data = (Map) value;
-		}
-		else {
+		} else {
 			this.value = value;
 		}
 	}
@@ -62,26 +61,24 @@ public class Matryoshka {
 
 		if (path.length - 1 == pos) {
 			return p.get(path[pos]);
-		}
-		else {
+		} else {
 			if (p.get(path[pos]) instanceof String) {
 				return p.get(path[pos]);
-			}
-			else {
+			} else {
 				return getRec((Map) p.get(path[pos]), path, ++pos);
 			}
 		}
 	}
 
-	public Object getMetadata(String key){
-		if (metadata != null){
+	public Object getMetadata(String key) {
+		if (metadata != null) {
 			return metadata.get(key);
 		}
 		return null;
 	}
 
 	public void setMetadata(String key, Object value) {
-		if (metadata == null){
+		if (metadata == null) {
 			metadata = new HashMap<>(1);
 		}
 		metadata.put(key, value);

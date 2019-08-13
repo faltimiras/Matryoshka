@@ -1,7 +1,6 @@
 package cat.altimiras.matryoshka;
 
 import java.util.Iterator;
-import java.util.Map;
 
 public class MatryoshkaIterator implements Iterator<Matryoshka> {
 

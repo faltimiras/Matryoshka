@@ -12,10 +12,16 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class MatryoshkaTest {
 
+	@Test
+	public void value()throws Exception{
+		Matryoshka matryoshka = new Matryoshka(1);
+		assertEquals(1, matryoshka.get("/key/key2").value());
+	}
 
 	@Test
 	public void simpleValue() throws Exception {
@@ -88,8 +94,30 @@ public class MatryoshkaTest {
 		assertTrue(matryoshka.get("root/list").value() instanceof List);
 	}
 
+	@Test
+	public void listPrimitives() throws Exception {
+
+		Map<String, Object> content = new HashMap<>();
+		content.put("list", Arrays.asList("1", 2, true));
+		content.put("field1", "aaa");
+
+		Map<String, Object> root = new HashMap<>();
+		root.put("root", content);
+
+		Matryoshka matryoshka = new Matryoshka(root);
+
+		assertEquals(3, matryoshka.get("root/list").asList().size());
+		assertEquals("1", matryoshka.get("root/list").asList().get(0).value());
+		assertEquals(2, matryoshka.get("root/list").asList().get(1).value());
+		assertEquals(true, matryoshka.get("root/list").asList().get(2).value());
+
+		assertEquals("aaa", matryoshka.get("root/field1").value());
+
+		assertTrue(matryoshka.get("root/list").value() instanceof List);
+	}
+
 	@Test(expected = Exception.class)
-	public void asMatrioshkaList() throws Exception {
+	public void asMatryoshkaList() throws Exception {
 		Map<String, Object> e1 = new HashMap<>(1);
 		e1.put("key", "111");
 
@@ -105,7 +133,7 @@ public class MatryoshkaTest {
 	}
 
 	@Test
-	public void matrioshkaIterator() throws Exception {
+	public void matryoshkaIterator() throws Exception {
 
 		Map<String, Object> e1 = new HashMap<>(1);
 		e1.put("key", "111");

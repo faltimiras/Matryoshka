@@ -55,7 +55,11 @@ public class Matryoshka {
 
 	private Object getRec(Map<String, Object> p, String[] path, int pos) {
 
-		if (p == null || path == null || path.length == 0) {
+		if(p == null) {
+			return null;
+		}
+
+		if (path == null || path.length == 0) {
 			return value;
 		}
 

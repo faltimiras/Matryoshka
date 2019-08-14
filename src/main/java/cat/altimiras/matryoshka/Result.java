@@ -32,11 +32,14 @@ public class Result {
 	}
 
 	public Matryoshka asMatryoshka() throws Exception {
+		if (this.content == null){
+			return null;
+		}
 		if (this.content instanceof Map) {
 			return new Matryoshka((Map) this.content);
 		}
 		if (this.content instanceof String) {
-			return new Matryoshka((String) this.content);
+			return new Matryoshka(this.content);
 		}
 
 		throw new Exception("Can not get as Matryoshka. Hint: try with asList()");

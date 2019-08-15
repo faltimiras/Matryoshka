@@ -133,7 +133,6 @@ public class MatryoshkaTest {
 		assertNull(matryoshka.get("anotherroot/otherfield").value());
 		assertTrue(matryoshka.get("anotherroot").asList().isEmpty());
 		assertTrue(matryoshka.get("anotherroot/otherfield").asList().isEmpty());
-
 	}
 
 	@Test(expected = Exception.class)

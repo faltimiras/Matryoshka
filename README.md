@@ -2,7 +2,7 @@
 
 ![Matryoshka](matryoshka.jpg)
 
-Navigate easily through a java Map (Matryoshka) with kind of path. Avoiding yourself to write may time get() and validate that is not null to avoid NullPointerExceptions. A kind of super limited XPath.
+Navigate easily through a java Map (Matryoshka) with a kind of path. Avoiding yourself to write many times get() and validate if it is not null to avoid NullPointerExceptions. A kind of super limited XPath.
 
 Imagine a map (expressed in JSON format)
 
@@ -43,7 +43,7 @@ Imagine a map (expressed in JSON format)
 "Daniel" = matryoshka.get("starring").asList().get(0).get("name");
 "uk" = matryoshka.get("starring").asList().get(0).get("country/short");
 
-or storing partitial results to improve performance
+or storing partial results to improve performance
 
 Matryoshka danielCraig = matryoshka.get("starring").asList().get(0);
 "Daniel"= danielCraig.get("name")
@@ -53,10 +53,10 @@ Matryoshka danielCraig = matryoshka.get("starring").asList().get(0);
 
 ## API
 
-- get(String): To retrieve data from the map structure using map keys splitted by '/'. ex: get("/root/object/value") or get("root","object","value")
+- get(String): To retrieve data from the map structure using map keys splitted with '/'. ex: get("/root/object/value") or get("root","object","value")
 
 Once you are in a node you can retrieve data with:
 
-- value(): You get raw data from this element
-- asMatryoshka(): You get anther Matryoshka from this node.
-- asList(): You get a list of Matryoshkas form this node.
+- value(): You get 'value' of this node.
+- asMatryoshka(): You get anther Matryoshka from this node. Only return null if it is a leaf without value. 
+- asList(): You get a list of Matryoshkas form this node. Never return null but empty list.

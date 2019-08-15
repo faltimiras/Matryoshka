@@ -35,10 +35,7 @@ public class Result {
 		if (this.content == null){
 			return null;
 		}
-		if (this.content instanceof Map) {
-			return new Matryoshka((Map) this.content);
-		}
-		if (this.content instanceof String) {
+		if (this.content instanceof Map ||  this.content instanceof String) {
 			return new Matryoshka(this.content);
 		}
 

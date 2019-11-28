@@ -117,10 +117,39 @@ public class MatryoshkaTest {
 	}
 
 	@Test
+	public void listElemsInPath() throws Exception {
+
+		Map<String, Object> e1 = new HashMap<>(1);
+		e1.put("key", "111");
+		Map<String, Object> e2 = new HashMap<>(1);
+		e2.put("key", "222");
+
+		Map<String, Object> content = new HashMap<>();
+		content.put("list", Arrays.asList(e1, e2));
+		content.put("field1", "aaa");
+		content.put("field2", "bbb");
+
+		Map<String, Object> root = new HashMap<>();
+		root.put("root", content);
+		root.put("list", Arrays.asList(1, 2));
+
+		Matryoshka matryoshka = new Matryoshka(root);
+
+		assertEquals(2, matryoshka.get("root/list").asList().size());
+		assertEquals("111", matryoshka.get("root/list[0]/key").value());
+		assertEquals("222", matryoshka.get("root/list[1]/key").value());
+		assertTrue(matryoshka.get("root/list").value() instanceof List);
+
+		assertEquals(1, matryoshka.get("list[0]").value());
+		assertEquals(2, matryoshka.get("list[1]").value());
+	}
+
+	@Test
 	public void notExist() throws Exception {
 
 		Map<String, Object> content = new HashMap<>();
 		content.put("field1", "aaa");
+		content.put("list", Arrays.asList(1, 2));
 
 		Map<String, Object> root = new HashMap<>();
 		root.put("root", content);
@@ -131,8 +160,11 @@ public class MatryoshkaTest {
 		assertNull(matryoshka.get("anotherroot/otherfield").asMatryoshka());
 		assertNull(matryoshka.get("anotherroot").value());
 		assertNull(matryoshka.get("anotherroot/otherfield").value());
+		assertNull(matryoshka.get("anotherroot/otherfield[0]").value());
 		assertTrue(matryoshka.get("anotherroot").asList().isEmpty());
 		assertTrue(matryoshka.get("anotherroot/otherfield").asList().isEmpty());
+		assertNull(matryoshka.get("root/field1[0]").value());
+		assertNull(matryoshka.get("root/list[2]").value());
 	}
 
 	@Test(expected = Exception.class)

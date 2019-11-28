@@ -38,22 +38,31 @@ Imagine a map (expressed in JSON format)
 }
 ```
 
+```
 1 = matryoshka.get("id").value(); 
 "Twenty-first James Bond movie" = matryoshka.get("desc").value();
 "Daniel" = matryoshka.get("starring").asList().get(0).get("name");
 "uk" = matryoshka.get("starring").asList().get(0).get("country/short");
+```
 
-or storing partial results to improve performance
+Or storing partial results to improve performance
 
+```
 Matryoshka danielCraig = matryoshka.get("starring").asList().get(0);
-"Daniel"= danielCraig.get("name")
-"uk"= danielCraig.get("country/short")
-"United Kingdom"= danielCraig.get("country/name")
+"Daniel" = danielCraig.get("name")
+"uk" = danielCraig.get("country/short")
+"United Kingdom" = danielCraig.get("country/name")
+```
 
+You can also use array indexes directly in paths
+
+```
+"Eva" = matryoshka.get("starring[1]/name")
+```
 
 ## API
 
-- get(String): To retrieve data from the map structure using map keys splitted with '/'. ex: get("/root/object/value") or get("root","object","value")
+- get(String): To retrieve data from the map structure using map keys splitted with `/`. You can also use `key[N]` to get the N element of an array in the key `key`. ex: `get("/root/object/value")` or `get("root/vegetables[0]/name")` or `get("root","object","value")`
 
 Once you are in a node you can retrieve data with:
 

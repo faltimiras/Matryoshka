@@ -1,11 +1,15 @@
 package cat.altimiras.matryoshka;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Matryoshka {
 
 	private final static String SEPARATOR = "/";
+	private final static Pattern KEY_PATTERN = Pattern.compile("^([^\\[]+)(\\[(\\d+)\\])?$");
 
 	private Map<String, Object> data;
 
@@ -55,7 +59,7 @@ public class Matryoshka {
 
 	private Object getRec(Map<String, Object> p, String[] path, int pos) {
 
-		if(p == null) {
+		if (p == null) {
 			return null;
 		}
 
@@ -63,14 +67,37 @@ public class Matryoshka {
 			return value;
 		}
 
+		Object value = getValue(p, path[pos]);
 		if (path.length - 1 == pos) {
-			return p.get(path[pos]);
+			return value;
 		} else {
-			if (p.get(path[pos]) instanceof String) {
-				return p.get(path[pos]);
+			return getRec((Map) value, path, ++pos);
+		}
+	}
+
+	private Object getValue(Map<String, Object> p, String partialPath) {
+		Matcher matcher = KEY_PATTERN.matcher(partialPath);
+		if (matcher.find()) {
+			String key = matcher.group(1);
+			String idxStr = matcher.group(3);
+			Integer idx = (idxStr != null && !idxStr.isEmpty()) ? Integer.parseInt(idxStr) : null;
+
+			Object value = p.get(key);
+			if (idx != null) {
+				return getListElem(value, idx);
 			} else {
-				return getRec((Map) p.get(path[pos]), path, ++pos);
+				return value;
 			}
+		} else {
+			return null;
+		}
+	}
+
+	private Object getListElem(Object obj, int idx) {
+		if (obj != null && obj instanceof List && idx < ((List) obj).size()) {
+			return ((List) obj).get(idx);
+		} else {
+			return null;
 		}
 	}
 
